@@ -1,0 +1,10 @@
+plex:
+ image: billwatts/plex
+ container_name: plex
+ ports:
+  - 32400:32400
+ net: host
+ volumes:
+  - /media/movies:/media/movies:ro
+  - /media/tv:/media/tv:ro
+  - /home/crucible/plex-config/Library:/root/Library:rw
