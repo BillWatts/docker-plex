@@ -1,10 +1,17 @@
-plex:
- image: billwatts/plex
- container_name: plex
- ports:
-  - 32400:32400
- net: host
- volumes:
-  - /media/movies:/media/movies:ro
-  - /media/tv:/media/tv:ro
-  - /home/crucible/plex-config/Library:/root/Library:rw
+version: "2"
+services:
+  plex:
+   image: billwatts/docker-plex
+   container_name: plex
+   ports:
+    - ${DOCKER_PLEX_PORT}:32400
+   networks:
+     - default
+   environment:
+     - DOCKER_PLEX_MOVIE_MEDIA
+     - DOCKER_PLEX_TV_MEDIA
+     - DOCKER_PLEX_CONFIG
+   volumes:
+    - ${DOCKER_PLEX_MOVIE_MEDIA}:/media/movies:ro
+    - ${DOCKER_PLEX_TV_MEDIA}:/media/tv:ro
+    - ${DOCKER_PLEX_CONFIG}:/root/Library/Application Support/Plex Media Server:rw

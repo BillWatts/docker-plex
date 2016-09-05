@@ -1,12 +1,12 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER BILL WATTS <bill@billwatts.codes>
 
-ARG DOCKER_PLEX_VERSION=1.0.2.2413-7caf41d
+RUN apt-get update && apt-get -y install wget
+
+ARG DOCKER_PLEX_VERSION=1.1.3.2700-6f64a8d
 ENV DOCKER_PLEX_VERSION ${DOCKER_PLEX_VERSION}
 
-RUN sudo apt-get update && sudo apt-get install curl -y
-
-RUN curl -sSL "https://downloads.plex.tv/plex-media-server/${DOCKER_PLEX_VERSION}/plexmediaserver_${DOCKER_PLEX_VERSION}_amd64.deb" -o plex.deb \
+RUN wget "https://downloads.plex.tv/plex-media-server/${DOCKER_PLEX_VERSION}/plexmediaserver_${DOCKER_PLEX_VERSION}_amd64.deb" -O plex.deb \
     && dpkg -i plex.deb \
     && rm -f plex.deb
 
